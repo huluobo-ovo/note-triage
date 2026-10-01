@@ -52,6 +52,18 @@ PYTHONPATH=src python -m unittest discover -s tests -v
 
 When the final 15 hand-authored notes and labels are frozen, run the same command against their JSONL file without using them to tune the baseline or future LLM prompt.
 
+## Run locally
+
+Requirements: Python 3.11 or later. No third-party Python package is required.
+
+```bash
+git clone https://github.com/huluobo-ovo/note-triage.git
+cd note-triage
+cp .env.example .env
+# Add OPENROUTER_API_KEY and OPENROUTER_MODEL to .env; never commit this file.
+PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
 Copy `.env.example` to a local `.env`, then set `OPENROUTER_API_KEY` and `OPENROUTER_MODEL`. The OpenRouter client reads this local file and never logs the key; `.env` is ignored by Git. It sends only unlabelled note sentences, requests strict JSON output, and records returned token usage, cost, and latency.
 
 Run the final holdout evaluation with:
@@ -59,3 +71,9 @@ Run the final holdout evaluation with:
 ```bash
 PYTHONPATH=src python scripts/run_openrouter_eval.py
 ```
+
+The final holdout is already frozen and evaluated. Do not revise it or re-run it after inspecting predictions. Review the saved results in `evals/results/`.
+
+## Run the Colab demo
+
+Open [NoteTriage_Colab_Demo.ipynb](notebooks/NoteTriage_Colab_Demo.ipynb) in Google Colab. The notebook clones this repository, asks for an API key using a password field, accepts an ad-hoc demo note, and compares the keyword baseline with GPT-4o. It does not send gold labels or automatically run the frozen holdout.
