@@ -1,0 +1,114 @@
+note_id,sentence_number,sentence,gold_label
+H01,1,"Client side: warehouse team will get new handheld units, target site is south distribution hub.",fact
+H01,2,"Mentioned existing device inventory is roughly 112 units, exact count not tabled in call.",fact
+H01,3,Sam said existing corporate directory auth should work for handheld login.,assumption
+H01,4,Some guy from client side mumbled MFA might not be rolled out to warehouse floor staff yet — never pulled up policy doc to verify.,assumption
+H01,5,Weekend shift staff? Not sure if they get assigned dedicated device or share kiosk hardware.,open_question
+H01,6,"Kiosk hardware OS version, nobody brought up.",open_question
+H01,7,Need to circle back: can temp workers reuse old retired handhelds?,open_question
+H02,1,"Night‑time API push sends supplier order payloads, hitting their staging endpoint right now.",fact
+H02,2,Business sponsor wants pilot kicking off December.,fact
+H02,3,Jake thought existing site‑to‑site VPN can carry this new API traffic.,assumption
+H02,4,"Client pushed back — that VPN was built for another vendor, IP whitelist locked down to old destination IP.",fact
+H02,5,Firewall tweak pencilled in for Wednesday evening slot.,assumption
+H02,6,"Mark added calendar slot, but client network lead never acknowledged the invite.",open_question
+H02,7,"No firm date locked, mid‑Dec floating as rough mental marker only.",open_question
+H02,8,Unclear: who formally approves new target IP? Network lead or supplier contact?,open_question
+H02,9,"API basic auth credentials, folder path got skipped in call, forgot to write those down.",open_question
+H03,1,"Client still running physical paper travel claim forms, scan and dump to shared drive afterwards.",fact
+H03,2,Finance team only gets looped in for bigger value submissions.,fact
+H03,3,They want new digital workflow live before year‑end system freeze.,fact
+H03,4,"Flow talked through: submitter → line manager → HR → finance. No pushback during call, going with that sequence for now.",fact
+H03,5,"Ling guessed high‑value threshold sits above 750, currency not specified in conversation.",assumption
+H03,6,Hoping HR can cut over old paper forms same weekend we go‑live.,assumption
+H03,7,Need to clarify exact monetary threshold triggering finance review.,open_question
+H03,8,Audit team still requesting physical wet‑signature scans? Never got clear yes/no.,open_question
+H04,1,Live incident tracker lives as shared excel workbook on department network drive.,fact
+H04,2,"Client comment: closed incidents older than 4 years can stay on legacy drive, no need to migrate across.",fact
+H04,3,"Client admin approximate number: ~3200 open active incident rows, ballpark figure, not formal exported stat.",fact
+H04,4,Zoe said full history migration doable within single cutover weekend window.,assumption
+H04,5,"Keep original header column names on row one, everyone seemed okay with that.",fact
+H04,6,Row ID fields look unique on quick spot check.,fact
+H04,7,"Later same admin chimed‑in, legal team might demand 8‑year retention instead. Cutoff age totally unresolved.",open_question
+H04,8,"Are we getting read‑only copy of full workbook, or only pre‑prepared CSV export from their side?",open_question
+H04,9,Empty field handling hasn’t been tested at all.,open_question
+H05,1,"Order records created inside inventory application, then finance staff manually re‑type everything over to invoicing tool.",fact
+H05,2,No production API integration available today.,fact
+H05,3,Our side take: nightly CSV dump should satisfy phase one requirements.,assumption
+H05,4,"Order number will act as join key between two datasets, proceeding under that premise.",assumption
+H05,5,Still ambiguous: does finance clerk still need full manual line‑by‑line check for every incoming CSV file? Must ask client.,open_question
+H06,1,Client confirm: field techs can only view jobs assigned directly to themselves.,fact
+H06,2,"Roles tossed around in discussion: field tech, job dispatcher, read‑only compliance auditor.",fact
+H06,3,"Those three role names mentioned verbally, nothing formally documented.",fact
+H06,4,Client nodded along verbally but this didn’t make call recap minutes afterwards.,fact
+H06,5,Job dataset contains region column stored as field value.,fact
+H06,6,"Expect corporate directory authentication, client rep left call before we could lock that down.",assumption
+H06,7,"Ryan’s idea: mirror existing web portal role structure for mobile app, that was internal team talk, client never weighed‑in.",assumption
+H06,8,Dispatcher permission: can dispatcher see every job across entire region? Not resolved.,open_question
+H06,9,Auditor role — is export functionality granted? Still need raise this question.,open_question
+H07,1,"Public incoming service‑desk address runs off shared mailbox resource, not licensed user account.",fact
+H07,2,Client hard ask: no auto‑reply messages active during migration weekend.,fact
+H07,3,Our suggestion: keep email forwarding active for three weeks post‑cutover.,assumption
+H07,4,"DNS records managed by central corporate IT group, not the mailbox hosting vendor.",fact
+H07,5,Who holds send‑as permissions for this shared mailbox? List never handed over.,open_question
+H07,6,"Retention policy applied against old mailbox instance, their admin will go check internally.",open_question
+H07,7,"Client mentioned handful of email aliases exist, then conversation shifted topic, alias inventory still outstanding.",open_question
+H08,1,Client perspective: test data extract can only happen once audit cycle completes.,fact
+H08,2,Working off idea they will supply masked copy taken directly from live production environment.,assumption
+H08,3,Kelly’s best guess: scrub all customer email addresses plus phone numbers out of dataset.,assumption
+H08,4,Team internal call: 15 sample records enough for rehearsal testing.,assumption
+H08,5,Client security lead absent from meeting; we operate assumption no real‑person PII inside test data.,assumption
+H08,6,Questions hanging: separate dedicated test tenant environment approved?,open_question
+H08,7,No calendar month given for data hand‑over.,open_question
+H08,8,"What about embedded file attachments, include or drop them from test set? No answer.",open_question
+H09,1,Full‑time internal staff authenticate via corporate directory service.,fact
+H09,2,"Tony walked through guest account provision workflow, but client system admin wasn’t present for that part of call.",fact
+H09,3,"Client response re contractors: sometimes they maintain name spreadsheet, sounded unsure of formal process.",fact
+H09,4,"Reuse expiry setting 60 days, same config we implemented for different project previously.",fact
+H09,5,"Project sponsor wants contractors included within early pilot wave, sponsor themselves didn’t join call so no binding decision made.",assumption
+H09,6,Need clarify: guest directory accounts auto expire or manually disabled?,open_question
+H09,7,Contractor end‑user devices under corporate MDM management? Topic left open‑ended.,open_question
+H10,1,Client system runs CSV extract job post‑midnight each day.,fact
+H10,2,Warehouse downstream system can accept late arriving files up to 07:00 according to Rob.,assumption
+H10,3,We proposed schedule our transformation job for 04:30 to bridge conflicting timings.,assumption
+H10,4,"Conflicting times surfaced: operations lead stated 01:30, business analyst later quoted 03:00, nobody picked final agreed time.",open_question
+H10,5,Which system clock defines official business date cutoff? Not settled.,open_question
+H10,6,Public holiday calendar file still awaiting client hand‑over before schedule finalised.,open_question
+H10,7,"Client first said include weekend runs, then someone added public holidays should maybe skip. Topic unresolved.",open_question
+H11,1,Current integration setup: shop floor system polls order status every four minutes.,fact
+H11,2,Webhook callback would be cleaner architecture‑wise.,assumption
+H11,3,Client comment: existing integration gateway might support callback functionality.,assumption
+H11,4,"Limited status values in scope: open, packed, dispatched.",fact
+H11,5,Haven’t yet reached out to gateway system owner to validate capability.,open_question
+H11,6,"Retry logic and connection timeout behaviour never got discussed, need circle back.",open_question
+H11,7,"Partial shipment scenarios, nothing written down about handling logic.",open_question
+H12,1,Confirmed change window Saturday 21:00 local time through Sunday 05:00.,fact
+H12,2,Client commit: onsite resource on‑call overnight for cutover event.,fact
+H12,3,"Rollback strategy: restore from previous night backup, we floated suggestion, client replied “that should work” then moved onto next agenda.",assumption
+H12,4,Amy’s estimate: backup job normally completes before 20:30.,assumption
+H12,5,"Only single production environment available; no standby failover instance, this was our reading, never explicitly confirmed by them.",assumption
+H12,6,If restore procedure overruns hard cut‑off window — who triggers abort? Named contact not supplied.,open_question
+H13,1,Customer sales reference number and billing account code shown side‑by‑side during screen share; they are different fields.,fact
+H13,2,Deleted customer entries persist inside billing database marked inactive status.,fact
+H13,3,Observed duplicate display‑name values across different customer rows.,fact
+H13,4,Short reference code appears unique on spot check.,fact
+H13,5,"Preserve leading zero characters, observed on billing UI screen, didn’t dig deeper to validate backend behaviour.",assumption
+H13,6,"Client gestured toward short code as potential join key, then second‑guessed themselves mid‑sentence.",assumption
+H13,7,"Request written sample dataset, ten rows pulled each from sales and billing side, still pending.",open_question
+H13,8,Not yet asked whether joining on that field is formally allowed by data governance rules.,open_question
+H14,1,Client ask: avoid first week of every month due finance month‑end close activities.,fact
+H14,2,Bella’s take: 11th of month should be safe slot.,assumption
+H14,3,Two‑hour maintenance slot should suffice for most deployments.,assumption
+H14,4,We won’t lock calendar until client shares infrastructure change calendar.,open_question
+H14,5,No official change window documented anywhere yet.,open_question
+H14,6,"Their infra calendar hasn’t been shared, send another reminder.",open_question
+H14,7,"Somebody mentioned freeze period around festival week, which festival exactly? Nobody clarified.",open_question
+H15,1,"Application writes audit event entries for login actions, record edits and data export operations.",fact
+H15,2,Regulator bodies can demand full log dataset as part of compliance checks.,fact
+H15,3,Compliance lead off‑the‑cuff comment: log retention roughly 12 months.,fact
+H15,4,Our side thought only compliance team permitted access; project team shouldn’t touch raw audit logs.,assumption
+H15,5,Audit exports delivered out as CSV formatted files.,fact
+H15,6,Who possesses permission to download complete full audit log set? Unclear.,open_question
+H15,7,"Process how formal log requests get submitted, not explained in meeting.",open_question
+H15,8,Question: does record‑delete operation itself trigger an audit log entry? Client team just shrugged.,open_question
+H15,9,"Can’t tell if same security reviewer handles network change work and audit log reviews, parked topic for later.",open_question
