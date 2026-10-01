@@ -46,7 +46,10 @@ The assistant-drafted notes in `notebooks/` are development-only data; they must
 
 ```bash
 PYTHONPATH=src python -m note_triage.cli notebooks/draft_discovery_notes_15.jsonl
+PYTHONPATH=src python -m note_triage.cli data/raw/holdout/labels.jsonl --notes data/raw/holdout/notes.jsonl
 PYTHONPATH=src python -m unittest discover -s tests -v
 ```
 
 When the final 15 hand-authored notes and labels are frozen, run the same command against their JSONL file without using them to tune the baseline or future LLM prompt.
+
+The OpenRouter client uses `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` from your local environment. It sends only unlabelled note sentences, requests strict JSON output, and records returned token usage, cost, and latency. Do not put the API key in Git.

@@ -1,11 +1,21 @@
 import unittest
+from pathlib import Path
 
 from note_triage.evaluate import evaluate
+from note_triage.data import load_holdout
 from note_triage.types import Label, Prediction, Sentence
 from note_triage.validation import validate_prediction
 
 
 class NoteTriageTests(unittest.TestCase):
+    def test_frozen_holdout_loads_with_all_labels(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        sentences = load_holdout(
+            root / "data/raw/holdout/notes.jsonl", root / "data/raw/holdout/labels.jsonl"
+        )
+        self.assertEqual(len(sentences), 113)
+        self.assertEqual(sum(sentence.gold_label is Label.ASSUMPTION for sentence in sentences), 29)
+
     def test_fact_without_verbatim_quote_abstains(self) -> None:
         sentence = Sentence("N01", 1, "Client confirmed SSO is enabled.", Label.FACT)
         prediction = Prediction("N01", 1, Label.FACT, quote="SSO will be enabled")

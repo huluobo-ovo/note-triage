@@ -37,3 +37,40 @@ def load_labeled_sentences(path: str | Path) -> list[Sentence]:
                 )
             )
     return sentences
+
+
+def load_holdout(notes_path: str | Path, labels_path: str | Path) -> list[Sentence]:
+    """Join frozen unlabeled notes to their separately stored gold labels."""
+    notes = {
+        record["id"]: record
+        for record in (
+            json.loads(line)
+            for line in Path(notes_path).read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        )
+    }
+    sentences: list[Sentence] = []
+    for line in Path(labels_path).read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        record = json.loads(line)
+        note = notes.get(record["id"])
+        if note is None:
+            raise ValueError(f"Labels reference unknown note {record['id']}")
+        for item in record["sentences"]:
+            label = Label(item["gold_label"])
+            if label not in GOLD_LABELS:
+                raise ValueError(f"Invalid holdout label {label}")
+            if note["text"][item["start"] : item["end"]] != item["text"]:
+                raise ValueError(f"Source span mismatch for {record['id']} sentence {item['n']}")
+            sentences.append(
+                Sentence(
+                    note_id=record["id"],
+                    number=item["n"],
+                    text=item["text"],
+                    gold_label=label,
+                    start=item["start"],
+                    end=item["end"],
+                )
+            )
+    return sentences
