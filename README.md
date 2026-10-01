@@ -38,4 +38,15 @@ For each evaluated model run, record model name, input tokens, output tokens, la
 
 ## Status
 
-Project scaffold created. The next implementation milestone is a deterministic keyword/regex baseline and the frozen manually authored holdout set.
+The deterministic keyword/regex baseline, source-quote guardrail, and evaluator are now implemented. The next implementation milestone is freezing the manually authored holdout set.
+
+## Run the baseline
+
+The assistant-drafted notes in `notebooks/` are development-only data; they must not be reported as the manually authored holdout.
+
+```bash
+PYTHONPATH=src python -m note_triage.cli notebooks/draft_discovery_notes_15.jsonl
+PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+When the final 15 hand-authored notes and labels are frozen, run the same command against their JSONL file without using them to tune the baseline or future LLM prompt.

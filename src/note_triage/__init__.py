@@ -1,1 +1,1 @@
-\"\"\"NoteTriage package.\"\"\"
+"""NoteTriage package."""
