@@ -1,0 +1,12 @@
+{
+  "model": "openai/gpt-4o-2024-08-06",
+  "pricing_basis": "OpenRouter listed price: USD 2.50 per million input tokens and USD 10.00 per million output tokens",
+  "input_tokens": 4120,
+  "output_tokens": 3786,
+  "input_cost_usd": 0.0103,
+  "output_cost_usd": 0.03786,
+  "estimated_total_cost_usd": 0.04816,
+  "notes_in_batch": 15,
+  "estimated_cost_per_note_usd": 0.00321,
+  "calculation": "(4120 / 1000000 * 2.50) + (3786 / 1000000 * 10.00)"
+}
