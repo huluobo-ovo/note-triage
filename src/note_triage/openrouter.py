@@ -6,6 +6,7 @@ import json
 import os
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from urllib.request import Request, urlopen
 
 from .types import Label, Prediction, Sentence
@@ -29,8 +30,25 @@ evidence is insufficient, use abstain. A fact must include a verbatim quote from
 the input sentence. Return only valid JSON matching the requested schema."""
 
 
+def load_local_env(path: Path = Path(".env")) -> None:
+    """Load simple KEY=VALUE pairs without logging secret values.
+
+    Existing environment variables win. The repository ignores `.env`, so keys
+    remain local to the machine.
+    """
+    if not path.is_file():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key, value = stripped.split("=", 1)
+        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
 def classify(sentences: list[Sentence], model: str | None = None, api_key: str | None = None) -> ModelRun:
     """Classify a note batch through OpenRouter without exposing gold labels."""
+    load_local_env()
     api_key = api_key or os.environ.get("OPENROUTER_API_KEY")
     model = model or os.environ.get("OPENROUTER_MODEL")
     if not api_key or not model:

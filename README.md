@@ -52,4 +52,10 @@ PYTHONPATH=src python -m unittest discover -s tests -v
 
 When the final 15 hand-authored notes and labels are frozen, run the same command against their JSONL file without using them to tune the baseline or future LLM prompt.
 
-The OpenRouter client uses `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` from your local environment. It sends only unlabelled note sentences, requests strict JSON output, and records returned token usage, cost, and latency. Do not put the API key in Git.
+Copy `.env.example` to a local `.env`, then set `OPENROUTER_API_KEY` and `OPENROUTER_MODEL`. The OpenRouter client reads this local file and never logs the key; `.env` is ignored by Git. It sends only unlabelled note sentences, requests strict JSON output, and records returned token usage, cost, and latency.
+
+Run the final holdout evaluation with:
+
+```bash
+PYTHONPATH=src python scripts/run_openrouter_eval.py
+```
