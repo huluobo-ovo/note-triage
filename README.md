@@ -2,6 +2,10 @@
 
 NoteTriage turns a B2B IT-services discovery note into a reviewable table of **facts**, **assumptions**, and **open questions**. Every item classified as a fact must contain a verbatim source quote; otherwise it is not accepted as a fact.
 
+## Demo video
+
+Watch the 4:51 final demonstration on YouTube: [NoteTriage Demo - PE6201 Final Project](https://youtu.be/XbiHStbHJos). The video is unlisted; anyone with the link can watch it.
+
 ## Project goal
 
 Implementation and product associates often turn unstructured client notes into delivery briefs. A hidden assumption presented as a client fact can cause a team to plan around an unconfirmed API, dataset, policy, or integration. This project tests whether structured LLM classification can reduce that failure mode compared with a transparent keyword/regex baseline.
